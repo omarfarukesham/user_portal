@@ -1,0 +1,56 @@
+import Table from '@/components/table/Table';
+import TableBody from '@/components/table/TableBody';
+import TableData from '@/components/table/TableData';
+import TableHead from '@/components/table/TableHead';
+import TableRow from '@/components/table/TableRow';
+import { useDataContext } from '@/context/dataContext';
+
+const ProductEditShippingMethods = () => {
+  const { data } = useDataContext();
+  const product = data.product;
+
+  return (
+    <div className='grid gap-5'>
+      {product?.defaultShippingInfos?.map((shippingInfo, index) => (
+        <Table className='border border-separate border-gray-3' key={index}>
+          <TableBody>
+            <TableRow>
+              <TableHead>Market Code</TableHead>
+              <TableData>{shippingInfo?.marketCode}</TableData>
+            </TableRow>
+            <TableRow>
+              <TableHead>Shipping Type</TableHead>
+              <TableData>{shippingInfo?.shippingType}</TableData>
+            </TableRow>
+            <TableRow>
+              <TableHead>Carrier Name</TableHead>
+              <TableData>{shippingInfo?.carrierName}</TableData>
+            </TableRow>
+            <TableRow>
+              <TableHead>Estimated Delivery Time</TableHead>
+              <TableData>
+                {shippingInfo?.estimatedDeliveryTime?.from} -{' '}
+                {shippingInfo?.estimatedDeliveryTime?.from}{' '}
+                {shippingInfo?.estimatedDeliveryTime?.unit}
+              </TableData>
+            </TableRow>
+          </TableBody>
+        </Table>
+      ))}
+
+      {!product.defaultShippingInfos?.length && (
+        <Table className='border border-separate border-gray-3'>
+          <TableBody>
+            <TableRow>
+              <TableData className='text-center'>
+                No shipping is assigned
+              </TableData>
+            </TableRow>
+          </TableBody>
+        </Table>
+      )}
+    </div>
+  );
+};
+
+export default ProductEditShippingMethods;

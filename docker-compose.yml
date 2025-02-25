@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  user-portal:
+    image: user_portal
+    ports:
+      - '80:80'
